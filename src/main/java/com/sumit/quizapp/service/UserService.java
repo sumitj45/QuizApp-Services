@@ -16,6 +16,8 @@ public class UserService {
     @Autowired
     private AuthenticationManager authManager;
 
+    @Autowired
+   private  JWTService jwtService;
 
     @Autowired
    private  UserRepo repo;
@@ -35,7 +37,7 @@ public class UserService {
             );
 
             if (authentication.isAuthenticated()) {
-                return "Login Success...";
+                return  jwtService.generateToken(user.getUsername());
             }
         } catch (Exception e) {
             System.out.println("Authentication failed: " + e.getMessage());
